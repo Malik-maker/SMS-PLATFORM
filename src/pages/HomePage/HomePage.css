@@ -1,0 +1,28 @@
+.text-color{
+    color: #15A57B;
+}
+.happy{
+
+   margin-bottom: 100px;
+}
+
+
+     /* Active state styles */
+     .accordion-button:not(.collapsed) {
+        color: #fff !important; /* Active text color */
+        background-color: #15A57B !important; /* Active background color */
+        border-color: #15A57B !important; /* Active border color */
+    }
+
+    /* Inactive state styles */
+    .accordion-button {
+        color: #000 !important; /* Default text color */
+        background-color: #f8f9fa !important; /* Default background color */
+        border-color: #dee2e6 !important; /* Default border color */
+    }
+
+    .faqs{
+        max-width: '500px';
+
+
+    }

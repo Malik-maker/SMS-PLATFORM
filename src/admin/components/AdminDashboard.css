@@ -1,0 +1,106 @@
+/* AdminDashboard.css */
+
+/* Basic reset and layout */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+#page-top {
+    display: flex;
+    flex-direction: column; /* Ensure topbar and sidebar stack */
+    height: 100vh;
+    overflow: hidden;
+}
+
+#wrapper {
+    display: flex;
+    height: 100%;
+}
+
+#content-wrapper {
+    flex-grow: 1;
+    margin-left: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.topbar-nav {
+    width: 100%;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999; /* Ensure the topbar is above the content */
+    padding-left: 250px; /* Account for sidebar width */
+    border-bottom: 1px solid #e3e6f0;
+}
+
+.topbar-nav .navbar-nav {
+    margin-left: auto;
+    margin-right: 1rem;
+}
+
+.topbar-nav .nav-link {
+    color: #5a5c69;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.topbar-nav .nav-link:hover {
+    color: #15A57B;
+}
+
+.topbar-nav .nav-item {
+    margin-left: 1rem;
+}
+
+.container-fluid {
+    padding: 80px 20px 20px 20px; /* Space for the topbar */
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.topbar-nav {
+    background-color: white;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.topbar-nav .navbar-nav .nav-link {
+    color: #15A57B;
+}
+
+.topbar-nav .navbar-nav .nav-link:hover {
+    color: #128C6F;
+}
+
+.topbar-nav .topbar-toggler {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .topbar-nav .topbar-toggler {
+        display: block;
+    }
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+    #wrapper {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+    }
+
+    .topbar-nav {
+        padding-left: 0;
+    }
+
+    #content-wrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+}
