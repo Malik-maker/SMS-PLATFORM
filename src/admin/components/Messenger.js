@@ -17,7 +17,7 @@ const Messenger = () => {
               <p className="card-text flex-grow-1">
                 Quickly send a short message to a small number of recipients
               </p>
-              <Link to="/Messenger" className="btn btn-primary mt-auto">
+              <Link to="/admin-dashboard/sendquickmessage" className="btn btn-primary mt-auto">
                 Compose A Quick Message
               </Link>
             </div>
@@ -33,7 +33,7 @@ const Messenger = () => {
               <p className="card-text flex-grow-1">
                 Import or use your existing contacts and send a mass message
               </p>
-              <Link to="/compose-new-message" className="btn btn-success mt-auto">
+              <Link to="/admin-dashboard/composebulkmessage" className="btn btn-success mt-auto">
                 Compose New Message
               </Link>
             </div>
@@ -49,7 +49,7 @@ const Messenger = () => {
               <p className="card-text flex-grow-1">
                 Add, update or remove sender name/ID used for messages
               </p>
-              <Link to="/manage-sender-names" className="btn btn-warning mt-auto">
+              <Link to="/admin-dashboard/managesendernames" className="btn btn-warning mt-auto">
                 View All
               </Link>
             </div>
