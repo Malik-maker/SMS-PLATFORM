@@ -178,7 +178,7 @@ const SendQuickMessage = () => {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-success"
                   onClick={handleAddSender}
                 >
                   Add Sender ID/Name

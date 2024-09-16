@@ -6,6 +6,7 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
+
 import HomePage from "./pages/HomePage/HomePage";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import GetInTouch from "./pages/GetInTouch/GetInTouch";
@@ -27,10 +28,11 @@ import Report from './admin/components/Report';
 import SendQuickMessage from './admin/components/SendQuickMessage';
 import ManageSenderNames from './admin/components/ManageSenderNames';
 import ComposeBulkMessage from './admin/components/ComposeBulkMessage';
-
-
 import Privacy from './admin/components/settings/Privacy';
 import DashboardDocumentation from './admin/components/settings/Documentation';
+
+
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

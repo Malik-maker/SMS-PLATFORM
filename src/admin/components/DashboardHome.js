@@ -14,7 +14,7 @@ const DashboardHome = () => {
               <FaEnvelope size={40} className="mb-3" />
               <h5 className="card-title">Total Sent</h5>
               <p className="card-text flex-grow-1">1000 messages sent</p>
-              <Link to="/send-message" className="btn btn-primary mt-auto">
+              <Link to="/admin-dashboard/sendquickmessage" className="btn btn-success mt-auto">
                 Click to send message
               </Link>
             </div>

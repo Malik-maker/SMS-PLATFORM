@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Modal, Button, Form } from "react-bootstrap";
+import DataTable from "react-data-table-component";
 import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import "./AdminDashboard.css"; // Import the CSS file
 
@@ -36,7 +38,7 @@ const ManageSenderNames = () => {
       {/* Add Sender ID Button */}
       <div className="d-flex justify-content-end mb-3">
         <button
-          className="btn btn-primary"
+          className="btn btn-success"
           onClick={() => setShowModal(true)}
         >
           <FaPlus className="me-2" /> Add Sender ID/Name
@@ -45,7 +47,7 @@ const ManageSenderNames = () => {
 
       {/* Table for Sender IDs */}
       <div className="table-responsive">
-        <table className="table table-bordered shadow">
+        <table className="table table-bordered table-hover shadow">
           <thead className="thead-light">
             <tr>
               <th scope="col">Sender ID/Name</th>
@@ -138,7 +140,7 @@ const ManageSenderNames = () => {
                 </button>
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-success"
                   onClick={handleAddSender}
                 >
                   Add Sender ID/Name

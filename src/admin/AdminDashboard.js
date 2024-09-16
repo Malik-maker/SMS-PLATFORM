@@ -29,7 +29,7 @@ const AdminDashboard = ({ onLogout }) => {
           <footer className="sticky-footer bg-white">
             <div className="container my-auto">
               <div className="copyright text-center my-auto">
-                <span>Copyright &copy; Your Website 2024</span>
+                <span>Copyright &copy; PRETIUM HUB 2024</span>
               </div>
             </div>
           </footer>
