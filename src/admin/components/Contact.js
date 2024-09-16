@@ -159,7 +159,7 @@ const Contact = () => {
           <Button variant="secondary" onClick={handleCloseAddContactModal}>
             Close
           </Button>
-          <Button variant="primary">Save Contact</Button>
+          <Button variant="success">Save Contact</Button>
         </Modal.Footer>
       </Modal>
 
@@ -184,7 +184,7 @@ const Contact = () => {
           <Button variant="secondary" onClick={handleCloseCreateGroupModal}>
             Close
           </Button>
-          <Button variant="primary">Create Group</Button>
+          <Button variant="success">Create Group</Button>
         </Modal.Footer>
       </Modal>
 

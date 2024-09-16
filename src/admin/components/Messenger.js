@@ -9,8 +9,8 @@ const Messenger = () => {
     <div className="container-fluid py-4">
       <div className="row">
         {/* Send Quick Message Card */}
-        <div className="col-md-4">
-          <div className="card shadow-sm mb-4 d-flex flex-column h-100">
+        <div className="col-md-4 ">
+          <div className="card shadow-lg mb-4 d-flex flex-column h-100">
             <div className="card-body text-center flex-grow-1 d-flex flex-column">
               <FaEnvelopeOpen size={40} className="mb-3 text-primary" />
               <h5 className="card-title">Send Quick Message</h5>
@@ -26,7 +26,7 @@ const Messenger = () => {
 
         {/* Send Bulk Messages Card */}
         <div className="col-md-4">
-          <div className="card shadow-sm mb-4 d-flex flex-column h-100">
+          <div className="card shadow-lg mb-4 d-flex flex-column h-100">
             <div className="card-body text-center flex-grow-1 d-flex flex-column">
               <FaUsers size={40} className="mb-3 text-success" />
               <h5 className="card-title">Send Bulk Messages</h5>
@@ -42,7 +42,7 @@ const Messenger = () => {
 
         {/* Manage Sender Names/IDs Card */}
         <div className="col-md-4">
-          <div className="card shadow-sm mb-4 d-flex flex-column h-100">
+          <div className="card shadow-lg mb-4 d-flex flex-column h-100">
             <div className="card-body text-center flex-grow-1 d-flex flex-column">
               <FaIdBadge size={40} className="mb-3 text-warning" />
               <h5 className="card-title">Manage Sender Names/IDs</h5>

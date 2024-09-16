@@ -9,7 +9,7 @@ const DashboardHome = () => {
       <div className="row">
         {/* Total Sent Card */}
         <div className="col-md-3">
-          <div className="card shadow-sm mb-4 d-flex flex-column h-100">
+          <div className="card shadow-lg mb-4 d-flex flex-column h-100">
             <div className="card-body text-center flex-grow-1 d-flex flex-column">
               <FaEnvelope size={40} className="mb-3" />
               <h5 className="card-title">Total Sent</h5>
@@ -23,7 +23,7 @@ const DashboardHome = () => {
 
         {/* Delivered Messages Card */}
         <div className="col-md-3">
-          <div className="card shadow-sm mb-4 d-flex flex-column h-100">
+          <div className="card shadow-lg mb-4 d-flex flex-column h-100">
             <div className="card-body text-center flex-grow-1 d-flex flex-column">
               <FaCheckCircle size={40} className="mb-3 text-success" />
               <h5 className="card-title">Delivered Messages</h5>
@@ -34,7 +34,7 @@ const DashboardHome = () => {
 
         {/* Total Failed Card */}
         <div className="col-md-3">
-          <div className="card shadow-sm mb-4 d-flex flex-column h-100">
+          <div className="card shadow-lg mb-4 d-flex flex-column h-100">
             <div className="card-body text-center flex-grow-1 d-flex flex-column">
               <FaTimesCircle size={40} className="mb-3 text-danger" />
               <h5 className="card-title">Total Failed</h5>
@@ -45,7 +45,7 @@ const DashboardHome = () => {
 
         {/* Available Credit Card */}
         <div className="col-md-3">
-          <div className="card shadow-sm mb-4 d-flex flex-column h-100">
+          <div className="card shadow-lg mb-4 d-flex flex-column h-100">
             <div className="card-body text-center flex-grow-1 d-flex flex-column">
               <FaMoneyBillAlt size={40} className="mb-3 text-warning" />
               <h5 className="card-title">Available Credit</h5>

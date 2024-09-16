@@ -64,14 +64,14 @@ const Sidebar = ({ onLogout }) => {
               </Link>
             </li>
             {/* Nav Item - Report */}
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link className="nav-link" to="/admin-dashboard/report">
                 <i className="fas fa-fw fa-chart-line"></i>
                 <span>Report</span>
               </Link>
-            </li>
+            </li> */}
             {/* Nav Item - Settings */}
-            <li className={`nav-item dropdown ${dropdownOpen ? "show" : ""}`}>
+            {/* <li className={`nav-item dropdown ${dropdownOpen ? "show" : ""}`}>
               <Link
                 className="nav-link dropdown-toggle"
                 to="#"
@@ -93,7 +93,7 @@ const Sidebar = ({ onLogout }) => {
                   Documentation
                 </Link>
               </div>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>
