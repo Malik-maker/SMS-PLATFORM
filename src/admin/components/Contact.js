@@ -36,11 +36,11 @@ const Contact = () => {
       name: "Action",
       cell: (row) => (
         <div>
-          <Button variant="outline-primary" className="me-2">
+          <Button variant="" className="me-2 bg-success text-white">
             <FaEdit /> Edit
           </Button>
           <Button
-            variant="outline-danger"
+            variant="outline-danger" className="bg-danger text-white"
             onClick={() => handleDeleteClick(row.id)}
           >
             <FaTrashAlt /> Delete

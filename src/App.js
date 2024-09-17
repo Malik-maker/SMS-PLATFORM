@@ -29,6 +29,7 @@ import SendQuickMessage from './admin/components/SendQuickMessage';
 import ManageSenderNames from './admin/components/ManageSenderNames';
 import ComposeBulkMessage from './admin/components/ComposeBulkMessage';
 import Profile from './admin/components/Profile';
+import API from './admin/components/API';
 import Privacy from './admin/components/settings/Privacy';
 import DashboardDocumentation from './admin/components/settings/Documentation';
 
@@ -82,6 +83,7 @@ function App() {
             <Route path="contact" element={<Contact />} />
             <Route path="topup" element={<TopUp />} />
             <Route path="report" element={<Report />} />
+            <Route path="api" element={<API />} />
             <Route path="sendquickmessage" element={<SendQuickMessage />} />
             <Route path="managesendernames" element={<ManageSenderNames />} />      
             <Route path="composebulkmessage" element={<ComposeBulkMessage />} />

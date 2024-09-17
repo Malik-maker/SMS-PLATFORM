@@ -47,7 +47,7 @@ const ManageSenderNames = () => {
 
       {/* Table for Sender IDs */}
       <div className="table-responsive">
-        <table className="table table-bordered table-hover shadow">
+        <table className="table table-bordered table-hover ">
           <thead className="thead-light">
             <tr>
               <th scope="col">Sender ID/Name</th>

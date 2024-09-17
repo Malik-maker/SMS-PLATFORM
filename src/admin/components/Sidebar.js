@@ -63,6 +63,12 @@ const Sidebar = ({ onLogout }) => {
                 <span>Top Up</span>
               </Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/admin-dashboard/api">
+                <i className="fas fa-fw fa-cogs"></i>
+                <span>API</span>
+              </Link>
+            </li>
             {/* Nav Item - Report */}
             {/* <li className="nav-item">
               <Link className="nav-link" to="/admin-dashboard/report">
