@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://flare-message.onrender.com/auth/api/user/';
+const API_URL = 'https://flare-message.onrender.com/api/user/';
 
 
 const authService = {

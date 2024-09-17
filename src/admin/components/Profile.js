@@ -176,6 +176,7 @@ const Profile = () => {
                 </tbody>
               </Table>
             </Tab.Pane>
+            
           </Tab.Content>
         </Tab.Container>
       </div>

@@ -112,4 +112,11 @@ body {
     border-radius: 10px; /* Rounded corners */
   }
   
+  .payment-table-container {
+    width: 100%; /* Makes the table span the full width of the container */
+  }
   
+  .payment-table-container table {
+    width: 100%; /* Ensures the table takes up the entire width of the container */
+  }
+   
