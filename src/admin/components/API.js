@@ -36,7 +36,7 @@ const API = () => {
 
       {/* Generate API Key Button */}
       <div className="text-center mb-4">
-        <button className="btn btn-primary" onClick={generateApiKey}>
+        <button className="btn btn-success" onClick={generateApiKey}>
           Generate API Key
         </button>
       </div>
