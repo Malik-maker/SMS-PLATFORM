@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaEnvelope, FaCheckCircle, FaTimesCircle, FaMoneyBillAlt } from "react-icons/fa"; // Import icons
 import "./AdminDashboard.css"; // Import the CSS file
 
 const DashboardHome = () => {
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    // Fetch the stored user name from localStorage
+    const storedUserName = localStorage.getItem("userName");
+    if (storedUserName) {
+      setUserName(storedUserName);
+    }
+  }, []);
+
   return (
     <div className="container-fluid py-4">
+      {/* Welcome Message */}
+      <div className="row mb-4">
+        <div className="col">
+          <h5 className="text-success">Welcome, {userName}!</h5> {/* Display welcome message */}
+        </div>
+      </div>
+
       <div className="row">
         {/* Total Sent Card */}
         <div className="col-md-3">
@@ -13,7 +30,7 @@ const DashboardHome = () => {
             <div className="card-body text-center flex-grow-1 d-flex flex-column">
               <FaEnvelope size={40} className="mb-3" />
               <h5 className="card-title">Total Sent</h5>
-              <p className="card-text flex-grow-1">1000 messages sent</p>
+              <p className="card-text flex-gros w-1 ">1000 messages sent</p>
               <Link to="/admin-dashboard/sendquickmessage" className="btn btn-success mt-auto">
                 Click to send message
               </Link>

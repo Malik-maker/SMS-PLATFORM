@@ -14,15 +14,20 @@ const LoginPage = ({ onLogin }) => {
 
         try {
             const response = await authService.login(email, password);
-            
+            console.log(response); // Check the structure of the response
+        
             if (response.success) {
-                // Store the bearer token in local storage
-                localStorage.setItem('token', response.data.bearer.token);
-
-                // Call onLogin from props to update authentication state
-                onLogin(email, password);
-
-                // Redirect based on successful login
+                // Extract the needed data from the response
+                const { _id, name, phone, email } = response.data;
+                
+                // Store user data in localStorage
+                localStorage.setItem('token', response.data.bearer.token);         // Store token
+                localStorage.setItem('userID', _id);             // Store user ID
+                localStorage.setItem('userName', name);          // Store user name
+                localStorage.setItem('userPhone', phone);        // Store user phone
+                localStorage.setItem('userEmail', email);        // Store user email
+        
+                // Redirect or handle successful login
                 navigate('/admin-dashboard');
             } else {
                 alert('Login failed');
@@ -31,8 +36,9 @@ const LoginPage = ({ onLogin }) => {
             console.error('Error during login:', error);
             alert('Login failed');
         } finally {
-            setLoading(false);  // Stop loading when the login process finishes
+            setLoading(false);
         }
+        
     };
 
     return (

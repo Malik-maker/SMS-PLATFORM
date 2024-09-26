@@ -1,15 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaEnvelopeOpen, FaUsers, FaIdBadge } from "react-icons/fa"; // Import icons
+import { FaEnvelopeOpen, FaUsers, FaIdBadge, FaCalendarAlt } from "react-icons/fa"; // Import the calendar icon
 import "./AdminDashboard.css"; // Import the CSS file
-
 
 const Messenger = () => {
   return (
     <div className="container-fluid py-4">
       <div className="row">
         {/* Send Quick Message Card */}
-        <div className="col-md-4 ">
+        <div className="col-md-3">
           <div className="card shadow-lg mb-4 d-flex flex-column h-100">
             <div className="card-body text-center flex-grow-1 d-flex flex-column">
               <FaEnvelopeOpen size={40} className="mb-3 text-primary" />
@@ -25,7 +24,7 @@ const Messenger = () => {
         </div>
 
         {/* Send Bulk Messages Card */}
-        <div className="col-md-4">
+        <div className="col-md-3">
           <div className="card shadow-lg mb-4 d-flex flex-column h-100">
             <div className="card-body text-center flex-grow-1 d-flex flex-column">
               <FaUsers size={40} className="mb-3 text-success" />
@@ -41,7 +40,7 @@ const Messenger = () => {
         </div>
 
         {/* Manage Sender Names/IDs Card */}
-        <div className="col-md-4">
+        <div className="col-md-3">
           <div className="card shadow-lg mb-4 d-flex flex-column h-100">
             <div className="card-body text-center flex-grow-1 d-flex flex-column">
               <FaIdBadge size={40} className="mb-3 text-warning" />
@@ -49,12 +48,29 @@ const Messenger = () => {
               <p className="card-text flex-grow-1">
                 Add, update or remove sender name/ID used for messages
               </p>
-              <Link to="/admin-dashboard/managesendernames" className="btn btn-warning mt-auto">
+              <Link to="/admin-dashboard/managesendernames" className="btn btn-warning  mt-auto">
                 View All
               </Link>
             </div>
           </div>
         </div>
+
+        {/* Schedule Message Card */}
+        <div className="col-md-3">
+          <div className="card shadow-lg mb-4 d-flex flex-column h-100">
+            <div className="card-body text-center flex-grow-1 d-flex flex-column">
+              <FaCalendarAlt size={40} className="mb-3 text-info" />
+              <h5 className="card-title">Schedule Message</h5>
+              <p className="card-text flex-grow-1">
+                Schedule your messages to be sent at a later time
+              </p>
+              <Link to="/admin-dashboard/schedulemessage" className="btn btn-info mt-auto">
+                Schedule A Message
+              </Link>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );

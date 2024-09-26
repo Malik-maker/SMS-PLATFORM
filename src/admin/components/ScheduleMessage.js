@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa"; // Import the plus icon
 import "./AdminDashboard.css"; // Import the CSS file
 
-const SendQuickMessage = () => {
+const ScheduleMessage = () => {
   const [recipientNumbers, setRecipientNumbers] = useState("");
   const [senderId, setSenderId] = useState("");
   const [date, setDate] = useState("");
@@ -18,7 +18,7 @@ const SendQuickMessage = () => {
     console.log("Form submitted:", {
       recipientNumbers,
       senderId,
-      date,
+      date, // Scheduling date included in submission
       message,
     });
   };
@@ -39,7 +39,7 @@ const SendQuickMessage = () => {
   return (
     <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
       <div className="card shadow-lg p-4 w-100" style={{ maxWidth: "600px" }}>
-        <h3 className="text-center mb-4">Send Quick Message</h3>
+        <h3 className="text-center mb-4">Schedule a Message</h3>
         <form onSubmit={handleSubmit}>
           {/* Recipient Phone Numbers */}
           <div className="mb-3">
@@ -54,7 +54,6 @@ const SendQuickMessage = () => {
               onChange={(e) => setRecipientNumbers(e.target.value)}
               placeholder="Enter recipient phone numbers"
             />
-            <small>E.g.: 024XXXXXXX,027XXXXXXX,020XXXXXXX Separate multiple numbers by comma.</small>
           </div>
 
           {/* Sender ID and Create New Sender ID (same row) */}
@@ -85,6 +84,7 @@ const SendQuickMessage = () => {
               </button>
             </div>
           </div>
+
           {/* Message Content */}
           <div className="mb-3">
             <label htmlFor="message" className="form-label">
@@ -100,9 +100,23 @@ const SendQuickMessage = () => {
             ></textarea>
           </div>
 
+          {/* Scheduling Date */}
+          <div className="mb-3">
+            <label htmlFor="scheduleDate" className="form-label">
+              Schedule Date
+            </label>
+            <input
+              type="datetime-local"
+              className="form-control"
+              id="scheduleDate"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </div>
+
           {/* Send Button */}
           <button type="submit" className="btn btn-success w-100">
-            Send Message
+            Schedule Message
           </button>
         </form>
       </div>
@@ -178,4 +192,4 @@ const SendQuickMessage = () => {
   );
 };
 
-export default SendQuickMessage;
+export default ScheduleMessage;

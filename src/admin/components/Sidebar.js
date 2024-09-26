@@ -28,10 +28,7 @@ const Sidebar = ({ onLogout }) => {
               className="sidebar-brand d-flex align-items-center justify-content-center"
               to="/admin-dashboard"
             >
-              <div className="sidebar-brand-icon rotate-n-15">
-                <i className="fas fa-laugh-wink"></i>
-              </div>
-              <div className="sidebar-brand-text mx-3">TRENCH MESSAGING</div>
+              <div className="sidebar-brand-text mx-3">FLARE MESSAGING</div>
             </Link>
             {/* Divider */}
             <hr className="sidebar-divider my-0" />

@@ -28,6 +28,7 @@ import Report from './admin/components/Report';
 import SendQuickMessage from './admin/components/SendQuickMessage';
 import ManageSenderNames from './admin/components/ManageSenderNames';
 import ComposeBulkMessage from './admin/components/ComposeBulkMessage';
+import ScheduleMessage from './admin/components/ScheduleMessage';
 import Profile from './admin/components/Profile';
 import API from './admin/components/API';
 import Privacy from './admin/components/settings/Privacy';
@@ -87,6 +88,7 @@ function App() {
             <Route path="sendquickmessage" element={<SendQuickMessage />} />
             <Route path="managesendernames" element={<ManageSenderNames />} />      
             <Route path="composebulkmessage" element={<ComposeBulkMessage />} />
+            <Route path="schedulemessage" element={< ScheduleMessage />} />
             <Route path="profile" element={<Profile />} />  
             <Route path="settings/privacy" element={<Privacy />} />
             <Route path="settings/documentation" element={<DashboardDocumentation />} />

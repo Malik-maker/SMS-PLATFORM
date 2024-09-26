@@ -1,86 +1,172 @@
 import React, { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
-import DataTable from "react-data-table-component";
-import { FaFileCsv, FaEdit, FaTrashAlt } from "react-icons/fa";
+import { Modal, Button, Form, Spinner } from "react-bootstrap"; // Added Spinner
+import { FaFileCsv } from "react-icons/fa";
+import Papa from "papaparse"; // CSV parsing library
+import axios from "axios"; // For API calls
 import "./AdminDashboard.css"; // Import the CSS file
 
 const Contact = () => {
   const [showAddContactModal, setShowAddContactModal] = useState(false);
+  const [contacts, setContacts] = useState([]);
+  const [name, setName] = useState(""); 
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [group, setGroup] = useState("");
+  const [csvData, setCsvData] = useState(null); 
+  const [loading, setLoading] = useState(false); // Added loading state
   const [showCreateGroupModal, setShowCreateGroupModal] = useState(false);
-  const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
-  const [selectedContactId, setSelectedContactId] = useState(null);
+  const [groupTitle, setGroupTitle] = useState("");
+  const [groupDescription, setGroupDescription] = useState("");
 
-  // Dummy data for the table
-  const [contacts, setContacts] = useState([
-    { id: 1, name: "John Doe", phoneNumber: "1234567890", group: "Family" },
-    { id: 2, name: "Jane Smith", phoneNumber: "0987654321", group: "Friends" },
-  ]);
-
-  const columns = [
-    {
-      name: "Name",
-      selector: (row) => row.name,
-      sortable: true,
-    },
-    {
-      name: "Phone Number",
-      selector: (row) => row.phoneNumber,
-      sortable: true,
-    },
-    {
-      name: "Groups",
-      selector: (row) => row.group,
-      sortable: true,
-    },
-    {
-      name: "Action",
-      cell: (row) => (
-        <div>
-          <Button variant="" className="me-2 bg-success text-white">
-            <FaEdit /> Edit
-          </Button>
-          <Button
-            variant="outline-danger" className="bg-danger text-white"
-            onClick={() => handleDeleteClick(row.id)}
-          >
-            <FaTrashAlt /> Delete
-          </Button>
-        </div>
-      ),
-    },
-  ];
 
   const handleAddContact = () => setShowAddContactModal(true);
-  const handleCreateGroup = () => setShowCreateGroupModal(true);
-
   const handleCloseAddContactModal = () => setShowAddContactModal(false);
+
+  const handleCsvUpload = (event) => {
+    const file = event.target.files[0];
+    Papa.parse(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: (result) => {
+        setCsvData(result.data); 
+      },
+    });
+  };
+
+  const handleSaveContact = async () => {
+    const contact = { name, phoneNumber, group };
+  
+    try {
+      const token = localStorage.getItem("token");
+      
+      if (!token) {
+        console.error("No token found");
+        alert('No token found, please log in again.'); // Alert when token is missing
+        return;
+      }
+  
+      setLoading(true); // Start loading spinner
+  
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+  
+      const response = await axios.post("https://flare-message.onrender.com/api/user/add-contacts", contact, config);
+      
+      // Check for any 2xx status code
+      if (response.status >= 200 && response.status < 300) {
+        setContacts([...contacts, contact]);
+        setName("");
+        setPhoneNumber("");
+        setGroup("");
+        handleCloseAddContactModal();
+        alert('Contact saved successfully!'); // Show success message
+      } else {
+        console.error('Unexpected response status:', response.status);
+        alert('Failed to save contact. Please try again.');
+      }
+    } catch (error) {
+      console.error("Error saving contact:", error.response || error.message);
+      alert('An error occurred while saving the contact. Please try again.'); // Handle any errors
+    } finally {
+      setLoading(false); // Stop loading spinner
+    }
+  };
+  
+  
+  const handleSaveCsvContacts = async () => {
+    if (!csvData) return;
+
+    try {
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+        throw new Error('No token found, please log in again.');
+      }
+
+      setLoading(true); // Start loading spinner
+
+      const promises = csvData.map(async (row) => {
+        const contact = { name: row.Name, phoneNumber: row.PhoneNumber, group };
+
+        return axios.post(
+          "https://flare-message.onrender.com/api/user/add-contacts", 
+          contact, 
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`,  
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+      });
+
+      await Promise.all(promises);
+
+      setContacts([...contacts, ...csvData.map(row => ({ name: row.Name, phoneNumber: row.PhoneNumber, group }))]);
+      handleCloseAddContactModal();
+      alert('Contacts saved successfully!');
+
+    } catch (error) {
+      console.error("Error saving CSV contacts:", error);
+      alert('Error saving contacts. Please try again.');
+    } finally {
+      setLoading(false); // Stop loading spinner
+    }
+  };
+
+  const handleCreateGroup = () => setShowCreateGroupModal(true);
   const handleCloseCreateGroupModal = () => setShowCreateGroupModal(false);
 
-  // Function to handle Delete button click
-  const handleDeleteClick = (contactId) => {
-    setSelectedContactId(contactId); // Set the ID of the selected contact for deletion
-    setShowDeleteConfirmModal(true); // Show the confirmation modal
-  };
-
-  // Function to confirm delete
-  const handleConfirmDelete = () => {
-    // Remove the contact from the list
-    const updatedContacts = contacts.filter((contact) => contact.id !== selectedContactId);
-    setContacts(updatedContacts);
-
-    // Close the confirmation modal
-    setShowDeleteConfirmModal(false);
-    setSelectedContactId(null);
-  };
-
-  const handleCloseDeleteConfirmModal = () => {
-    setShowDeleteConfirmModal(false);
-    setSelectedContactId(null);
-  };
-
+    // Handle form submission for creating a group
+    const handleCreateGroupSubmit = async () => {
+      if (!groupTitle || !groupDescription) {
+        alert("Please fill in both title and description.");
+        return;
+      }
+  
+      const groupData = {
+        title: groupTitle,
+        description: groupDescription,
+      };
+  
+      try {
+        const token = localStorage.getItem("token");
+  
+        if (!token) {
+          alert('No token found, please log in again.');
+          return;
+        }
+  
+        setLoading(true);
+  
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+  
+        const response = await axios.post("https://flare-message.onrender.com/api/user/add-contacts", groupData, config);
+        
+        if (response.status >= 200 && response.status < 300) {
+          alert("Group created successfully!");
+          setGroupTitle("");
+          setGroupDescription("");
+          handleCloseCreateGroupModal();
+        } else {
+          alert("Failed to create group. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error creating group:", error);
+        alert("An error occurred while creating the group. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+  
   return (
     <div className="container mt-5">
-      {/* Cards */}
       <div className="row">
         <div className="col-md-6">
           <div className="card shadow-lg p-3">
@@ -90,6 +176,7 @@ const Contact = () => {
             </Button>
           </div>
         </div>
+
         <div className="col-md-6">
           <div className="card shadow-lg p-3">
             <h5>Create Group</h5>
@@ -100,26 +187,6 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* Table */}
-      <div className="mt-4">
-        <DataTable
-          title="Contacts"
-          columns={columns}
-          data={contacts}
-          pagination
-          highlightOnHover
-          subHeader
-          subHeaderComponent={
-            <input
-              type="text"
-              className="form-control w-25"
-              placeholder="Search Contacts"
-            />
-          }
-        />
-      </div>
-
-      {/* Add Contacts Modal */}
       <Modal show={showAddContactModal} onHide={handleCloseAddContactModal}>
         <Modal.Header closeButton>
           <Modal.Title>Add Contacts</Modal.Title>
@@ -128,27 +195,36 @@ const Contact = () => {
           <Form>
             <Form.Group className="mb-3" controlId="formFile">
               <Form.Label>Upload Contacts File (.CSV)</Form.Label>
-              <Form.Control type="file" accept=".csv" />
+              <Form.Control type="file" accept=".csv" onChange={handleCsvUpload} />
             </Form.Group>
             <p>
               <FaFileCsv className="me-2" />
-              <a href="#">Download Sample CSV Template</a>
-              . You can either fill up the document with your contacts or create
-              a CSV file with headings such as Name, Email, and Phone Number.
+              <a href="#">Download Sample CSV Template</a>.
             </p>
-            <h6 className="mt-4">Enter Contact Information Below</h6>
+            <hr />
+            <h6 className="mt-4">Enter Contact Information Manually</h6>
             <Form.Group className="mb-3">
               <Form.Label>Name / Title</Form.Label>
-              <Form.Control type="text" placeholder="Enter name or title" />
+              <Form.Control
+                type="text"
+                placeholder="Enter name or title"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Phone Number</Form.Label>
-              <Form.Control type="text" placeholder="Enter phone number" />
+              <Form.Control
+                type="text"
+                placeholder="Enter phone number"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Groups</Form.Label>
-              <Form.Select>
-                <option>Select group</option>
+              <Form.Select value={group} onChange={(e) => setGroup(e.target.value)}>
+                <option value="">Select group</option>
                 <option value="Family">Family</option>
                 <option value="Friends">Friends</option>
               </Form.Select>
@@ -159,12 +235,24 @@ const Contact = () => {
           <Button variant="secondary" onClick={handleCloseAddContactModal}>
             Close
           </Button>
-          <Button variant="success">Save Contact</Button>
+          {/* Show spinner if loading */}
+          {loading ? (
+            <Button variant="success" disabled>
+              <Spinner animation="border" size="sm" className="me-2" />
+              Saving...
+            </Button>
+          ) : (
+            <Button variant="success" onClick={csvData ? handleSaveCsvContacts : handleSaveContact}>
+              Save Contact
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
 
-      {/* Create Group Modal */}
-      <Modal show={showCreateGroupModal} onHide={handleCloseCreateGroupModal}>
+
+
+          {/* Create Group Modal */}
+          <Modal show={showCreateGroupModal} onHide={handleCloseCreateGroupModal}>
         <Modal.Header closeButton>
           <Modal.Title>Create Group</Modal.Title>
         </Modal.Header>
@@ -172,11 +260,22 @@ const Contact = () => {
           <Form>
             <Form.Group className="mb-3">
               <Form.Label>Title</Form.Label>
-              <Form.Control type="text" placeholder="Enter group title" />
+              <Form.Control
+                type="text"
+                placeholder="Enter group title"
+                value={groupTitle}
+                onChange={(e) => setGroupTitle(e.target.value)}
+              />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Description</Form.Label>
-              <Form.Control as="textarea" rows={3} placeholder="Group description" />
+              <Form.Control
+                as="textarea"
+                rows={3}
+                placeholder="Group description"
+                value={groupDescription}
+                onChange={(e) => setGroupDescription(e.target.value)}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -184,27 +283,17 @@ const Contact = () => {
           <Button variant="secondary" onClick={handleCloseCreateGroupModal}>
             Close
           </Button>
-          <Button variant="success">Create Group</Button>
+          <Button
+            variant="success"
+            onClick={handleCreateGroupSubmit}
+            disabled={loading}
+          >
+            {loading ? "Creating..." : "Create Group"}
+          </Button>
         </Modal.Footer>
       </Modal>
 
-      {/* Delete Confirmation Modal */}
-      <Modal show={showDeleteConfirmModal} onHide={handleCloseDeleteConfirmModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirm Delete</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Are you sure you want to delete this contact?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseDeleteConfirmModal}>
-            Cancel
-          </Button>
-          <Button variant="danger" onClick={handleConfirmDelete}>
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
+
     </div>
   );
 };

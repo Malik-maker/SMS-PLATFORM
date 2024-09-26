@@ -118,20 +118,6 @@ const ComposeBulkMessage = () => {
             </div>
           </div>
 
-          {/* Date */}
-          <div className="mb-3">
-            <label htmlFor="date" className="form-label">
-              Date
-            </label>
-            <input
-              type="date"
-              className="form-control"
-              id="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-            />
-          </div>
-
           {/* Message Content */}
           <div className="mb-3">
             <label htmlFor="message" className="form-label">
